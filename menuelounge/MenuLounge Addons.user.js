@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MenuLounge Addons
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  omnomnom
 // @author       FAL
 // @match        https://menuelounge.com/*
