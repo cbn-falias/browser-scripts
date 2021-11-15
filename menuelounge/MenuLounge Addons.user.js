@@ -29,7 +29,7 @@ function showTodaysOrderInNavBar() {
             var result = JSON.parse(response);
             var day = new Date().getDate();
             var dateString = String(day).padStart(2, '0') + '.' + String(month).padStart(2, '0') + '.' + year;
-            console.log(result);
+            //console.log(result);
 
             var todaysOrder = result.orders.filter(order => {
                 return order.dateAndShift.indexOf(dateString) === 0;
