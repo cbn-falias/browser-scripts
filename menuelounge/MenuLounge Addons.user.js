@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MenuLounge Addons
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  omnomnom
 // @author       FAL
 // @match        https://menuelounge.com/*
@@ -15,7 +15,15 @@
     copyAvailableProductsButtonToHeader();
     showTodaysOrderInNavBar();
     resizeProductListing();
+    hideAdBanner();
 })();
+
+function hideAdBanner() {
+    var bannerEl = document.querySelector('.top-advertisement-slot.advertisement-component');
+    if(bannerEl) {
+        bannerEl.style.display = 'none';
+    }
+}
 
 function resizeProductListing() {
     var products = document.querySelector('.product__listing.product__grid');
