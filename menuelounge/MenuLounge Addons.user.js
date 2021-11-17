@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         MenuLounge Addons
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
+// @updateURL    https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
+// @downloadURL  https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @description  omnomnom
 // @author       FAL
 // @match        https://menuelounge.com/*
