@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MenuLounge Addons
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @updateURL    https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @downloadURL  https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @description  omnomnom
@@ -39,6 +39,12 @@ function resizeProductListing() {
             prodEl.classList.remove('col-sm-3');
         }
     });
+
+    var pagination = document.querySelector('.pagination.hmm-pull-right-sm');
+    if(pagination) {
+        pagination.style.transformOrigin = 'right';
+        pagination.style.transform = 'scale(1.3)';
+    }
 }
 
 function showTodaysOrderInNavBar() {
