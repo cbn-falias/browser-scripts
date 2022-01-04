@@ -50,26 +50,32 @@ function resizeProductListing() {
 function showTodaysOrderInNavBar() {
     var year = new Date().getFullYear();
     var month = new Date().getMonth() + 1;
+    var monthStr = String(month).padStart(2, '0');
 
     $.ajax({
         async: true,
-        url: "/my-account/orders/" + year + '-' + month,
+        url: "/my-account/orders/" + year + '-' + monthStr,
         method: "POST",
         dataType: 'json',
         success: function(response) {
-            var result = JSON.parse(response);
-            var day = new Date().getDate();
-            var dateString = String(day).padStart(2, '0') + '.' + String(month).padStart(2, '0') + '.' + year;
-            //console.log(result);
+            var result = {};
+            try {
+                result = JSON.parse(response);
 
-            var todaysOrder = result.orders.filter(order => {
-                return order.dateAndShift.indexOf(dateString) === 0;
-            });
+                var day = new Date().getDate();
+                var dateString = String(day).padStart(2, '0') + '.' + monthStr + '.' + year;
+                //console.log(result);
 
-            todaysOrder = todaysOrder.reduce((result, order) => {
-                var parts = order.product.split('</br>');
-                return result.concat(parts);
-            }, []);
+                var todaysOrder = result.orders.filter(order => {
+                    return order.dateAndShift.indexOf(dateString) === 0;
+                });
+
+                todaysOrder = todaysOrder.reduce((result, order) => {
+                    var parts = order.product.split('</br>');
+                    return result.concat(parts);
+                }, []);
+            } catch (e) {
+            }
 
             var navLinksAcc = document.getElementsByClassName('nav__links--account')[0];
             var li = document.createElement('li');
