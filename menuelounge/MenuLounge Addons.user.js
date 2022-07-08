@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MenuLounge Addons
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @updateURL    https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @downloadURL  https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @description  omnomnom
@@ -17,6 +17,7 @@
     copyAvailableProductsButtonToHeader();
     showTodaysOrderInNavBar();
     resizeProductListing();
+    appendNavToProductListing();
     hideAdBanner();
 })();
 
@@ -44,6 +45,26 @@ function resizeProductListing() {
     if(pagination) {
         pagination.style.transformOrigin = 'right';
         pagination.style.transform = 'scale(1.3)';
+    }
+}
+
+// when products are resized it might be misleading that the end of all products is reached
+function appendNavToProductListing() {
+    var pagination = document.querySelector('.pagination');
+    var products = document.querySelector('.product__listing.product__grid');
+    if(!pagination || !products) {
+        return;
+    }
+
+    var rowIsFull = products.childElementCount % 6 === 0;
+
+    if(!rowIsFull) {
+        pagination = pagination.cloneNode(true);
+        var newChild = products.appendChild(products.lastElementChild.cloneNode(false));
+        newChild.style.display = 'flex';
+        newChild.style.alignItems = 'center';
+        newChild.style.justifyContent = 'center';
+        newChild.appendChild(pagination);
     }
 }
 
