@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MenuLounge Addons
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @updateURL    https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @downloadURL  https://github.com/cbn-falias/browser-scripts/raw/main/menuelounge/MenuLounge%20Addons.user.js
 // @description  omnomnom
@@ -41,6 +41,7 @@ function resizeProductListing() {
         }
     });
 
+    // make it more visible
     var pagination = document.querySelector('.pagination.hmm-pull-right-sm');
     if(pagination) {
         pagination.style.transformOrigin = 'right';
@@ -50,21 +51,30 @@ function resizeProductListing() {
 
 // when products are resized it might be misleading that the end of all products is reached
 function appendNavToProductListing() {
-    var pagination = document.querySelector('.pagination');
+    var paginationNext = document.querySelector('.pagination-next:not(.disabled)');
     var products = document.querySelector('.product__listing.product__grid');
-    if(!pagination || !products) {
+    if(!paginationNext || !products) {
         return;
     }
 
     var rowIsFull = products.childElementCount % 6 === 0;
 
     if(!rowIsFull) {
-        pagination = pagination.cloneNode(true);
         var newChild = products.appendChild(products.lastElementChild.cloneNode(false));
         newChild.style.display = 'flex';
         newChild.style.alignItems = 'center';
         newChild.style.justifyContent = 'center';
-        newChild.appendChild(pagination);
+        newChild.title = 'Next page (created by CBN addon)';
+
+        var pagination = document.createElement('ul');
+        pagination.classList.add('pagination');
+        pagination.style.transform = 'scale(2)';
+        pagination = newChild.appendChild(pagination);
+
+        paginationNext = paginationNext.cloneNode(true);
+        paginationNext.firstElementChild.style.margin = 0;
+        paginationNext.firstElementChild.style.border = 0;
+        pagination.appendChild(paginationNext);
     }
 }
 
